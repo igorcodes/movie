@@ -1,7 +1,7 @@
 import React from "react";
 //import Favorite from "./Favorite";
 //import WillWatch from "./WillWatch";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 //import Image from "../UIComponents/Image";
 //import Progressbar from "../UIComponents/Progressbar";
 
@@ -17,8 +17,10 @@ export default class VideoItem extends React.PureComponent {
 
 
         <div className="card-body">
-			<h6 className="card-title">{item.title}</h6>
-			<div className="card-text">Рейтинг: {item.vote_average}</div>
+			<h5 className="card-title"><strong><em>Фильм: "{item.title}</em>"</strong></h5>
+      <div className="card-text"><strong>Рейтинг:</strong> {item.vote_average}</div>
+			<div className="card-text"><strong>Популярность:</strong> {item.popularity}</div>
+			<div className="card-text"><strong>Описание:</strong> {item.overview}</div>
         
 		</div>
       </div>
