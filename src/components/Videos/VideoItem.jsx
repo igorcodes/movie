@@ -9,7 +9,7 @@ export default class VideoItem extends React.PureComponent {
   render() {
     const { item } = this.props;
     return (
-      <div className="card" style={{ width: "100%" }}>
+      <div className="card bg-dark text-white mb-3" style={{ width: "100%" }}>
 
 		  <img className="card-img-top card-img--height"
 		  		src={`https://image.tmdb.org/t/p/w500${item.backdrop_path || item.poster_path}`}
@@ -17,10 +17,15 @@ export default class VideoItem extends React.PureComponent {
 
 
         <div className="card-body">
+          <div className="card-header">
 			<h5 className="card-title"><strong><em>Фильм: "{item.title}</em>"</strong></h5>
       <div className="card-text"><strong>Рейтинг:</strong> {item.vote_average}</div>
 			<div className="card-text"><strong>Популярность:</strong> {item.popularity}</div>
+      <div className="card-text"><strong>Количество голосов:</strong> {item.vote_count}</div>
+          </div>
+
 			<div className="card-text"><strong>Описание:</strong> {item.overview}</div>
+      <a href="#" className="btn btn-primary">Полное описание</a>
         
 		</div>
       </div>
