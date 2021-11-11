@@ -1,31 +1,40 @@
 import React from "react";
+import PrimaryReleaseYear from './PrimaryReleaseYear';
+import SortBy from "./SortBy";
 
 export default class Filters extends React.Component {
   render() {
-	  const { filters: {sort_by}, onChangeFilters } = this.props; //чтобы в зависимости от того какое состояние в app.js, был такой-же селект
+	  const { filters: {sort_by, primary_release_year/* , with_genres */}, page, /* total_pages, */ onChangeFilters, onChangePage } = this.props; //чтобы в зависимости от того какое состояние в app.js, был такой-же селект
     return (
-      <div className="mb-3">
-		  <div className="form-group">
-			  <label htmlFor="sort_by">Сортировать по:</label>
-
-			  <select 
-			    className="form-control" 
-				value={sort_by} 
-				onChange={onChangeFilters} 
-				name="sort_by" 
-				id="sort_by">
-				   <option value="popularity.desc">Популярные по убыванию</option>
-			  		<option value="popularity.asc">Популярные по возрастанию</option>
-			  		<option value="vote_average.desc">Рейтинг по убыванию</option>
-			  		<option value="vote_average.asc">Рейтинг по возрастанию</option>
-			  		<option value="vote_count.desc">Количество проголосовавших по убыванию</option>
-			  		<option value="vote_count.asc">Количество проголосовавших по возрастанию</option>
-			  		<option value="revenue.desc">Прибыль по убыванию</option>
-			  		<option value="revenue.asc">Прибыль по возрастанию</option>
-			  </select>
+      <form className="mb-3">
+		  <SortBy sort_by={sort_by} onChangeFilters={onChangeFilters} /><br/>
+		  <PrimaryReleaseYear primary_release_year={primary_release_year} onChangeFilters={onChangeFilters} /><br/>
 		  
+		  <div className="btn-group">
+			<button type="button" className="btn btn-secondary" onClick={onChangePage.bind(null, page - 1)} disabled={page === 1}>Предыдущая</button>  {/* onClick={onChangePage.bind(null, page - 1)} в bind передаем null и первый аргумент page - 1 */}
+			<button type="button" className="btn btn-secondary" onClick={onChangePage.bind(null, page + 1)}>Следующая</button>  {/* onClick={() => {onChangePage(page + 1);}} при онклике вызываем функцию в которой будем вызывать onChangePage с параметром page + 1*/}
 		  </div>
-	  </div>
+
+						{/* <div className="form-group">
+							<label htmlFor="sort_by">Год релиза:</label>
+							<select 
+								value={primary_release_year} 
+								onChange={onChangeFilters} 
+								name="primary_release_year" 
+								id="primary_release_year" 
+								labelText="Год релиза:">
+									<option value="2021">2021</option>
+									<option value="2020">2020</option>
+									<option value="2019">2019</option>
+									<option value="2018">2018</option>
+									<option value="2017">2017</option>
+							</select>
+						</div> */}
+		  
+		  {/* <Genres genres={with_genres} onChange={onChangeFilters} />
+		  <Pagination page={page} total_pages={total_pages} onChangePagination={onChangePagination} /> */}
+		  
+	  </form>
     );
   }
 }

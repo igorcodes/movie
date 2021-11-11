@@ -19,6 +19,7 @@ export default class VideoItem extends React.PureComponent {
         <div className="card-body">
           <div className="card-header">
 			<h5 className="card-title"><strong><em>Фильм: "{item.title}</em>"</strong></h5>
+      <div className="card-text"><strong>Дата релиза:</strong> {item.release_date}</div>
       <div className="card-text"><strong>Рейтинг:</strong> {item.vote_average}</div>
 			<div className="card-text"><strong>Популярность:</strong> {item.popularity}</div>
       <div className="card-text"><strong>Количество голосов:</strong> {item.vote_count}</div>

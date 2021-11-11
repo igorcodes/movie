@@ -9,8 +9,10 @@ export default class App extends React.Component {
 
     this.state = {  //все вильтры и их значения буду записывать в обьект filters
       filters: {
-        sort_by: "revenue.desc"
-      }
+        sort_by: "revenue.desc",
+        primary_release_year: 2021
+      },
+      page: 1
     };
   }
 
@@ -23,9 +25,18 @@ export default class App extends React.Component {
       filters: newFilters   //обновляю фильтр       
     });
     console.log(event.target.name, event.target.value)
-  } 
+  }; 
+
+  //функция изменения состояния page, просто кнопки вперед/назад
+  onChangePage = page => {
+    console.log(page);
+    this.setState({
+      page  //идентично page: page, (page будем менять на page который мы получили  )б page: page - если ключ совпадает с переменной то это потом преобразуется в ключ: значение с помощью ES6
+    });
+  };
 
   render() {
+    const { filters, page } = this.state; //без этого ниже <Filters page={this.state.page} filters={this.state.filters}
     return (
       <div className="container">
         <div className="row mt-4">
@@ -34,14 +45,14 @@ export default class App extends React.Component {
             <div className="card" style={{width: "100%"}}>
               <div className="card-body">
                 <h3>Фильтры:</h3>
-                <Filters filters={this.state.filters} onChangeFilters={this.onChangeFilters} />
+                <Filters page={page} filters={filters} onChangeFilters={this.onChangeFilters} onChangePage={this.onChangePage} />
               </div>
             </div>
           </div>
 
           <div className="col-8">
             <h3>Рекомендуемые фильмы и сериалы:</h3>
-            <VideoList filters={this.state.filters} />
+            <VideoList filters={this.state.filters} page={page} onChangePage={this.onChangePage} /> {/* перекинул page={page} в VideoList, и теперь в нем есть page и там можно работать со страницами */}
           </div>
 
         </div>
