@@ -71,6 +71,12 @@ export default class VideoList extends React.Component {
 		if (this.props.page !== prevProps.page) {  //если текущая страница не равна предыдущей
 			this.getVideos(this.props.filters, this.props.page);    //тогда вызвать функцию getVideos
 		}
+
+		/* if (this.props.filters.with_genres !== prevProps.filters.with_genres) {  //если текущая страница не равна предыдущей
+			this.getVideos(this.props.filters, this.props.page);    //тогда вызвать функцию getVideos
+		} */
+
+
 	} //здесь доступны не nextProps, (так как рендер произошол) то обновленные пропсы уже записались в this.props
 
 	render() {

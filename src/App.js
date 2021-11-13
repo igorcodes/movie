@@ -2,6 +2,7 @@ import React from "react";
 import Filters from "./components/Filters/Filters";
 import VideoList from "./components/Videos/VideoList";
 import './App.css';
+import Header from "./components/Header/Header";
 
 export default class App extends React.Component {
   constructor() { //создаю состояние конструктор, фильтров вверху всего кода (стандартно) для того чтобы при смене селекта-фильта мы отправляли новый запрос для получения нового VideoList. Детектит изменение пропсов и делает новый запрос  
@@ -9,8 +10,9 @@ export default class App extends React.Component {
 
     this.state = {  //все вильтры и их значения буду записывать в обьект filters
       filters: {
-        sort_by: "revenue.desc",
-        primary_release_year: 2021
+        sort_by: "vote_count.desc",
+        primary_release_year: 2021,
+        /* with_genres: []  */
       },
       page: 1
     };
@@ -35,9 +37,34 @@ export default class App extends React.Component {
     });
   };
 
+  setTotalPages = total_pages => {
+    this.setState({ total_pages })
+  };
+
+  /* onChangeGenre  = event => {
+    const id = event.target.value;
+    const { genres } = this.state.filters;
+    let newGenres = [];
+    if (genres.includes(id)) {
+      newGenres = genres.filter(el => el !== id);
+    } else {
+      newGenres = [...genres, id];
+    }
+    this.setState(prevState => {
+      return {
+        filters: {
+          ...prevState.filters,
+          genres: newGenres,
+        },
+      };
+    });
+  }; */
+
   render() {
     const { filters, page } = this.state; //без этого ниже <Filters page={this.state.page} filters={this.state.filters}
     return (
+      <div>
+      <Header />
       <div className="container">
         <div className="row mt-4">
 
@@ -45,7 +72,7 @@ export default class App extends React.Component {
             <div className="card" style={{width: "100%"}}>
               <div className="card-body">
                 <h3>Фильтры:</h3>
-                <Filters page={page} filters={filters} onChangeFilters={this.onChangeFilters} onChangePage={this.onChangePage} />
+                <Filters page={page} /* total_pages={total_pages} */ filters={filters} onChangeFilters={this.onChangeFilters} onChangePage={this.onChangePage} /* onChangeGenre={this.onChangeGenre} */ />
               </div>
             </div>
           </div>
@@ -57,6 +84,7 @@ export default class App extends React.Component {
 
         </div>
       </div>
+    </div>
     );
   }
 };

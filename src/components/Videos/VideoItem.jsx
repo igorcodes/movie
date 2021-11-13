@@ -8,11 +8,12 @@ import React from "react";
 export default class VideoItem extends React.PureComponent {
   render() {
     const { item } = this.props;
+    const imagePath = item.backdrop_path || item.poster_path;
     return (
       <div className="card bg-dark text-white mb-3" style={{ width: "100%" }}>
 
 		  <img className="card-img-top card-img--height"
-		  		src={`https://image.tmdb.org/t/p/w500${item.backdrop_path || item.poster_path}`}
+		  		src={imagePath ? `https://image.tmdb.org/t/p/w500${imagePath}` : ""}
                 alt="" />
 
 
