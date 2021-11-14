@@ -20,3 +20,7 @@ code {
   height: 180px;
   object-fit: cover; /* вырезает с постера нужный размер под нашу ширину */
 }
+
+input.invalid {
+  border-color: #dc3545;
+}

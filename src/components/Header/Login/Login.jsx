@@ -1,5 +1,5 @@
 import React from "react";
-import {API_URL, API_KEY_3} from "../../../api/api";
+
 import { Modal, ModalBody } from 'reactstrap';
 import LoginForm from "./LoginForm"
 
@@ -17,7 +17,7 @@ export default class Login extends React.Component {
 		}))
 	}
 	
-	sendPromises = async () => {    						//по умлочанию если мы не укажем никакие опшены вторым аргуменом как обьектом, я могу в then получить респонс, превратить его в json и уже в последней цепочке получить data которую я буду выводить
+	/* sendPromises = async () => {    						//по умлочанию если мы не укажем никакие опшены вторым аргуменом как обьектом, я могу в then получить респонс, превратить его в json и уже в последней цепочке получить data которую я буду выводить
 
 		const callApi = (url, options = {}) => {
 			return new Promise((resolve, reject) => {  	//промис задается главным способом через конструктор new Promise и принимает функцию где первый аргумент будет ресолв а второй аргумент будет реджект
@@ -75,7 +75,7 @@ export default class Login extends React.Component {
 		
 		
 
-	};
+	}; */
 	render() {
 		return (
 				<div >
@@ -84,7 +84,7 @@ export default class Login extends React.Component {
 					</button>
 					<Modal isOpen={this.state.showLoginForm} toggle={this.toggleModal}>
 						<ModalBody>
-							<LoginForm />
+							<LoginForm updateUser={this.props.updateUser} updateSessinId={this.props.updateSessinId} />
 						</ModalBody>
 					</Modal>
 				</div>
