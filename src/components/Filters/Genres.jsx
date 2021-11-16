@@ -1,34 +1,68 @@
 import React from "react";
+import {API_URL, API_KEY_3} from "../../api/api";
+
 
 export default class Genres extends React.Component {
+	constructor() {
+		super();
+
+		this.state = {
+			genresList: []                              //это изменяемый массив, должен быть в стейте, изначально пустой без данных (пока не получили их с API), данные будеи получать в componentDidMount
+		};
+	}
+	
+	componentDidMount() { 
+		const link = `${API_URL}/genre/movie/list?api_key=${API_KEY_3}&language=ru-RU`;
+		fetch(link)
+			.then(response => { return response.json(); }) //получаем response и этот response мы преобразуем в обычный js-обьект с помощью json
+			.then(data => { this.setState({ genresList: data.genres }); }); //data.results это наш массив фильмов, setStatом мы изменяем стейт и происходит рендер и в movies.map появляется массив из 20 элементов, мы его мапируем и
+	}
+								
+	onChange = event => {
+		this.props.onChangeFilters({
+			target: {
+				name: "with_genres",
+				value: event.target.checked ? [...this.props.with_genres, event.target.value] : this.props.with_genres.filter(genre => genre !== event.target.value)
+			}
+		});
+	};
+
+	resetGenres = () => {
+		this.props.onChangeFilters({
+			target: {
+				name: "with_genres",
+				value: []
+			}
+		});
+	};
+                                                  
+
 	render() {
-		const {with_genres, onChangeFilters} = this.props;
+		const { genresList } = this.state;
+		const { with_genres = [] } = this.props;
 		return (
-			<div className="form-group">
-			  <label htmlFor="with_genres">Жанры:</label>
-			  <p><input type="checkbox" value="with_genre">Комедия</input></p>
-			  <p><input type="checkbox" value="with_genre">Детектив</input></p>
-			  <p><input type="checkbox" value="with_genre">Ужасы</input></p>
-			  <p><input type="checkbox" value="with_genre">Драма</input></p>
-			  <p><input type="checkbox" value="with_genre">Мистика</input></p>
-			  <p><input type="checkbox" value="with_genre">Исторические</input></p>
-			  <p><input type="checkbox" value="with_genre">Другие</input></p>
-			  <select 
-			    className="form-control" 
-				value={with_genres} 
-				onChange={onChangeFilters} 
-				name="with_genres" 
-				id="with_genres">
-				   <option value="popularity.desc">Популярные по убыванию</option>
-			  		<option value="popularity.asc">Популярные по возрастанию</option>
-			  		<option value="vote_average.desc">Рейтинг по убыванию</option>
-			  		<option value="vote_average.asc">Рейтинг по возрастанию</option>
-			  		<option value="vote_count.desc">Количество проголосовавших по убыванию</option>
-			  		<option value="vote_count.asc">Количество проголосовавших по возрастанию</option>
-			  		<option value="revenue.desc">Прибыль по убыванию</option>
-			  		<option value="revenue.asc">Прибыль по возрастанию</option>
-			  </select>
-		  </div>
-		)
+
+			<React.Fragment>
+			<div>
+			<button type="button" className="btn btn-outline-dark mb-2" onClick={this.resetGenres} >Показать все жанры</button>
+			</div>
+
+			{genresList.map(genre => (
+				<div key={genre.id} className="form-check">
+					<input
+					className="form-check-input"
+					type="checkbox"
+					value={genre.id} 
+					id={`genre${genre.id}`}
+					onChange={this.onChange}
+					checked={with_genres.includes(String(genre.id))}
+					/>
+					<label className="form-check-label" htmlFor={`genre${genre.id}`} >{genre.name}</label>
+				</div>
+			))};
+			
+			</React.Fragment>
+		);
 	}
 }
+
