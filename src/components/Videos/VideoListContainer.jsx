@@ -1,6 +1,8 @@
 import React from "react";
 import VideoList from "./VideoList";
 import {API_URL, API_KEY_3} from "../../api/api";
+import _ from "lodash";
+import queryString from "query-string";
 
 export default class VideoListContainer extends React.Component {
 	constructor() {
@@ -12,13 +14,25 @@ export default class VideoListContainer extends React.Component {
 	}
 	
 	getVideos = (filters, page) => {                                           //аргумент filters буду пробрасывать в эту функцию
-		const {sort_by, primary_release_year, with_genres} = filters;                        //хочу sort_by брать с filters (аргумент с функции)
-		
-		const link = `${API_URL}/discover/movie?api_key=${API_KEY_3}&language=ru-RU&sort_by=${sort_by}&page=${page}&primary_release_year=${primary_release_year}`;// Обращаемся к url, делаем фетч и получаем данные и после этого изменяем наше состояние; &language=ru-RU` - значит пришли мне данные на русском
-		
-		//if (with_genres.length > 0) {with_genres.join(".")}
+		const { sort_by, primary_release_year, with_genres } = filters;
+		const queryStringParams = {
+		api_key: API_KEY_3,
+		language: "ru-RU",
+		sort_by: sort_by,
+		page: page,
+		primary_release_year: primary_release_year
+		};
+
+		if (with_genres.length > 0)
+		queryStringParams.with_genres = with_genres.join(",");
+
+		const link = `${API_URL}/discover/movie?${queryString.stringify(
+		queryStringParams
+		)}`;
 		fetch(link)
-			.then(response => { return response.json(); })                         //получаем response и этот response мы преобразуем в обычный js-обьект с помощью json
+		.then(response => {
+			return response.json();
+		})                         //получаем response и этот response мы преобразуем в обычный js-обьект с помощью json
 			.then(data => { console.log('data', data); this.setState({ movies: data.results }); }); //data.results это наш массив фильмов, setStatом мы изменяем стейт и происходит рендер и в movies.map появляется массив из 20 элементов, мы его мапируем и 
 	} 
 
