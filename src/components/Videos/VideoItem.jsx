@@ -1,7 +1,7 @@
 import React from "react";
 //import Favorite from "./Favorite";
 //import WillWatch from "./WillWatch";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 //import Image from "../UIComponents/Image";
 //import Progressbar from "../UIComponents/Progressbar";
 
@@ -19,7 +19,7 @@ export default class VideoItem extends React.PureComponent {
 
         <div className="card-body">
           <div className="card-header">
-			<h5 className="card-title"><strong><em>Фильм: "{item.title}</em>"</strong></h5>
+			<Link to={`/movie/${item.id}`} params={{item:item}} {...item} className="card-title"><strong><em>Фильм: "{item.title}</em>"</strong></Link>
       <div className="card-text"><strong>Дата релиза:</strong> {item.release_date}</div>
       <div className="card-text"><strong>Рейтинг:</strong> {item.vote_average}</div>
 			<div className="card-text"><strong>Популярность:</strong> {item.popularity}</div>
@@ -27,7 +27,7 @@ export default class VideoItem extends React.PureComponent {
           </div>
 
 			<div className="card-text"><strong>Описание:</strong> {item.overview}</div>
-      <a href="#" className="btn btn-primary">Полное описание</a>
+      <Link to={`/movie/${item.id}`} className="btn btn-primary">Полное описание</Link>
         
 		</div>
       </div>
@@ -35,4 +35,4 @@ export default class VideoItem extends React.PureComponent {
   }
 }
 
-
+/* , ${item.title} */
