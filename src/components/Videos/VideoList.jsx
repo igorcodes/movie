@@ -1,6 +1,8 @@
 import React from "react";
 import VideoItem from "./VideoItem";
 import PropTypes from "prop-types";
+/* import Rating from './Rating'; */
+
 
 const VideoList = ({ movies = [] }) => (    //деструктуризация пропсов VideoList, можно было тут просто написать props, а ниже props.movies
 	<div className="row">
@@ -8,6 +10,7 @@ const VideoList = ({ movies = [] }) => (    //деструктуризация �
 						return (
 							<div key={movie.id} className="col-6 mb-4">      {/* изначально привязываем верхний див к кей для того чтобы потом что-то делать с этими узлами */}
 								<VideoItem item={movie} />                   {/* в VideoItem вкидываем как пропс наш обьект movie */}
+								{/* <Rating item={movie} /> */}
 							</div>
 						);
 				})}
