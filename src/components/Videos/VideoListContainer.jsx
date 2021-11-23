@@ -14,19 +14,61 @@ export default class VideoListContainer extends React.Component {
 	}
 	
 	getVideos = (filters, page) => {                                           //аргумент filters буду пробрасывать в эту функцию
-		const { sort_by, primary_release_year, with_genres } = filters;
+		const { sort_by, primary_release_year, search, with_genres } = filters;
 		const queryStringParams = {
 		api_key: API_KEY_3,
 		language: "ru-RU",
 		sort_by: sort_by,
 		page: page,
-		primary_release_year: primary_release_year
+		primary_release_year: primary_release_year,
+		query: search
 		};
 
 		if (with_genres.length > 0)
 		queryStringParams.with_genres = with_genres.join(",");
 
-		const link = `${API_URL}/discover/movie?${queryString.stringify(
+		if(search.length > 0) {
+			const sort_by = this.props.filters.sort_by;
+		const primary_release_year = this.props.filters.primary_release_year;
+		const search = this.props.filters.search;
+		const link = `${API_URL}/search/movie?api_key=${API_KEY_3}&language=ru-RU&query=${search}&primary_release_year=${primary_release_year}&sort_by=${sort_by}`;// Обращаемся к url, делаем фетч и получаем данные и после этого изменяем наше состояние; &language=ru-RU` - значит пришли мне данные на русском
+								fetch(link)
+									.then(response => { return response.json(); }) //получаем response и этот response мы преобразуем в обычный js-обьект с помощью json
+									.then(data => { console.log('data', data); this.setState({ movies: data.results }); });	
+
+			/* const link = `${API_URL}/search/movie?${queryString.stringify(
+			queryStringParams
+			)}`;
+			fetch(link)
+			.then(response => {
+				return response.json();
+			})                         //получаем response и этот response мы преобразуем в обычный js-обьект с помощью json
+				.then(data => { console.log('data', data); this.setState({ movies: data.results }); }); //data.results это наш массив фильмов, setStatом мы изменяем стейт и происходит рендер и в movies.map появляется массив из 20 элементов, мы его мапируем и 
+		 */
+		
+		} else {
+			const link = `${API_URL}/discover/movie?${queryString.stringify(
+			queryStringParams
+			)}`;
+			fetch(link)
+			.then(response => {
+				return response.json();
+			})                         //получаем response и этот response мы преобразуем в обычный js-обьект с помощью json
+				.then(data => { console.log('data', data); this.setState({ movies: data.results }); }); //data.results это наш массив фильмов, setStatом мы изменяем стейт и происходит рендер и в movies.map появляется массив из 20 элементов, мы его мапируем и 
+		}
+	} 
+
+		/* 
+		https://api.themoviedb.org/3/search/movie?api_key=4237669ebd35e8010beee2f55fd45546&language=ru-RU&query=&sort_by=vote_count.desc
+		https://api.themoviedb.org/3/discover/movie?api_key=4237669ebd35e8010beee2f55fd45546&language=ru-RU&page=1&primary_release_year=2021&query=&sort_by=vote_count.desc
+		https://api.themoviedb.org/3/search/movie?api_key=4237669ebd35e8010beee2f55fd45546&language=ru-RU&page=1&primary_release_year=2021&query=spider&sort_by=vote_count.desc
+		
+		https://api.themoviedb.org/3/search/movie?api_key=4237669ebd35e8010beee2f55fd45546&language=ru-RU&query=&sort_by=vote_count.desc
+		
+		*/
+
+
+		/* const link = `${API_URL}/discover/movie?${queryString.stringify(
 		queryStringParams
 		)}`;
 		fetch(link)
@@ -34,27 +76,33 @@ export default class VideoListContainer extends React.Component {
 			return response.json();
 		})                         //получаем response и этот response мы преобразуем в обычный js-обьект с помощью json
 			.then(data => { console.log('data', data); this.setState({ movies: data.results }); }); //data.results это наш массив фильмов, setStatом мы изменяем стейт и происходит рендер и в movies.map появляется массив из 20 элементов, мы его мапируем и 
-	} 
+	}  */
 
 
 	componentDidMount() {                                                         //этот МЖЦ срабатывает только 1 раз после первого рендера там где и нужно делать все наши ajax-запросы. 
-		this.getVideos(this.props.filters, this.props.page);																												/* 
-								const { filters: { sort_by } } = this.props; // идентично const sort_by = this.props.filters.sort_by    деструктуризация (все данные в this.props), если этот ключ в обьекте есть то он запишет его в переменную sort_by 
-								const link = `${API_URL}/discover/movie?api_key=${API_KEY_3}&language=ru-RU&sort_by=${sort_by}`;// Обращаемся к url, делаем фетч и получаем данные и после этого изменяем наше состояние; &language=ru-RU` - значит пришли мне данные на русском
-								fetch(link)
-									.then(response => { return response.json(); }) //получаем response и этот response мы преобразуем в обычный js-обьект с помощью json
-									.then(data => { console.log('data', data); this.setState({ movies: data.results }); }); //data.results это наш массив фильмов, setStatом мы изменяем стейт и происходит рендер и в movies.map появляется массив из 20 элементов, мы его мапируем и  */
+		this.getVideos(this.props.filters, this.props.page);
+
+		
 	}
 									
 	
 	componentDidUpdate(prevProps) {
 		console.log("componentDidUpdate", 'какая была предыдущая страница ', prevProps.page, 'какая новая страница ', this.props.page); //особенность componentDidUpdate в том что тут уже все поменялось, рендер уже произошол, срабатывает после рендера, пропсы уже поменялись, имеем доступ к предыдущим пропсам 
+		
+							
+	
+
 		if (this.props.filters.sort_by !== prevProps.filters.sort_by) {  //просто сравниваю фильтры, новый такой-же как и старый или нет
 			this.props.onChangePage(1);                                 //изменяем состояние чтобы в app - page поменялся и стал 1 
 			this.getVideos(this.props.filters, 1);                     //если мы дошли до какой-то страницы и поменяли фильтр, тогда должно вызвать функцию с новым фильтром и ПЕРВОЙ СТРАНИЦЕЙ!!!! т.е. пагинация (переключение страниц) должна сбрасываться
 		}
 
 		if (this.props.filters.primary_release_year !== prevProps.filters.primary_release_year) {    //просто сравниваю фильтры, новый такой-же как и старый или нет
+			this.props.onChangePage(1);                                //изменяем состояние чтобы в app - page поменялся и стал 1 
+			this.getVideos(this.props.filters, 1);                     //если мы дошли до какой-то страницы и поменяли фильтр, тогда должно вызвать функцию с новым фильтром и ПЕРВОЙ СТРАНИЦЕЙ!!!! т.е. пагинация (переключение страниц) должна сбрасываться
+		}
+
+		if (this.props.filters.search !== prevProps.filters.search) {    //просто сравниваю фильтры, новый такой-же как и старый или нет
 			this.props.onChangePage(1);                                //изменяем состояние чтобы в app - page поменялся и стал 1 
 			this.getVideos(this.props.filters, 1);                     //если мы дошли до какой-то страницы и поменяли фильтр, тогда должно вызвать функцию с новым фильтром и ПЕРВОЙ СТРАНИЦЕЙ!!!! т.е. пагинация (переключение страниц) должна сбрасываться
 		}

@@ -3,6 +3,16 @@ import callApi from '../../../api/api';
 import StarRatingComponent from 'react-star-rating-component';
 import Cookies from 'universal-cookie';
 
+
+import CreateReview from './CreateReview';
+import ReviewList from './ReviewList';
+
+
+function toDate(date) {
+  return (new Date(date)).toDateString();
+}
+
+
 /* const cookies = new Cookies(); */
 
 export default class VideoPage extends React.Component {
@@ -69,6 +79,11 @@ export default class VideoPage extends React.Component {
 								  <h6>{movieDetails.overview}</h6>
 								  <h6>{movieDetails.vote_average}</h6>
 							  </div>
+
+							
+								<CreateReview movieDetails={movieDetails} type="movie" />
+								{/* <ReviewList movieDetails={movieDetails} type="movie" /> */}
+							
 						  </div>
 		)
 	}

@@ -13,7 +13,8 @@ export default class VideosPage extends React.Component {
       filters: {
         sort_by: "vote_count.desc",
         primary_release_year: 2021,
-        with_genres: []
+        with_genres: [],
+        search: [] 
       },
       page: 1
     };
