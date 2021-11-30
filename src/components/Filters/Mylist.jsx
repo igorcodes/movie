@@ -22,18 +22,21 @@ export default class Mylist extends React.Component {
 
     for (let poster of posters) {
         if (poster[1] === "/") { posterlink2.add('https://image.tmdb.org/t/p/w500' + poster.slice(1)) }
-         else if (poster[0] === "/") { posterlink2.add('https://image.tmdb.org/t/p/w500' + poster.slice(1)) }
+         else if (poster[0] === "/") { posterlink2.add('https://image.tmdb.org/t/p/w500' + poster.slice(0)) }
     }
     console.log("posterlink2", posterlink2)
 
 
     for (let title of titles) {
-      if (title[0] === "t" && title.length>3) {
+      if (title[0] == "t" && title.length>3) {
         let str = "";
         for (let char of title) {
-          if (char === '%' || char === 2 ||char ===  0) {str = str + ' '} else {str = str + char} 
+          if (char == '%' || char == 2 ||char ==  0) {str = str + ' '} else {str = str + char} 
         }
-        if(str.length<38 ){titlelink2.add(str.slice(1))}
+        console.log("str", str)
+        console.log("str.length", str.length)
+        if(str.length<40 ){titlelink2.add(str.slice(1))}
+        console.log("titlelink2", titlelink2)
       }
     }
   }

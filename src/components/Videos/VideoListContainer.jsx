@@ -7,7 +7,7 @@ import { TagCloud } from 'react-tagcloud'
 const data = [
 	{ value: 'Spider', count: 38 },
 	{ value: 'Kill', count: 15 },
-	{ value: 'Master', count: 28 },
+	{ value: 'Мстители', count: 28 },
 	{ value: 'Boss', count: 25 },
 	{ value: 'Red', count: 33 },
 	{ value: 'Rabbit', count: 18 },
@@ -19,20 +19,17 @@ export default class VideoListContainer extends React.Component {
 	constructor() {
 		super();
 
-		
-
 		this.state = {
 			movies: []                              //это изменяемый массив, должен быть в стейте, изначально пустой без данных (пока не получили их с API), данные будеи получать в componentDidMount
 		};
 	}
-
 	
 	
 	getVideos = (filters, page) => {                                           //аргумент filters буду пробрасывать в эту функцию
 		const { sort_by, primary_release_year, search, with_genres } = filters;
 		const queryStringParams = {
 		api_key: API_KEY_3,
-		language: "en-EN",
+		language: "ru-RU",
 		sort_by: sort_by,
 		page: page,
 		primary_release_year: primary_release_year,
@@ -63,26 +60,66 @@ export default class VideoListContainer extends React.Component {
 		}
 	} 
 
-	SimpleCloud = () => {
+	SimpleCloud = (filters, page) => {
 		return (<TagCloud
 			minSize={12}
 			maxSize={35}
 			tags={data}
 			onClick={tag => {
-				//const sort_by = this.props.filters.sort_by;
-		//const primary_release_year = this.props.filters.primary_release_year;
-		//const search = this.props.filters.search;
-		const link = `https://api.themoviedb.org/3/search/movie?api_key=4237669ebd35e8010beee2f55fd45546&language=ru-RU&query=${tag.value}&primary_release_year=2021&sort_by=vote_count.desc`;// Обращаемся к url, делаем фетч и получаем данные и после этого изменяем наше состояние; &language=ru-RU` - значит пришли мне данные на русском
+			
+			
+		const link = `https://api.themoviedb.org/3/search/movie?api_key=4237669ebd35e8010beee2f55fd45546&language=ru-RU&query=${tag.value}&sort_by=popularity.desc`;// Обращаемся к url, делаем фетч и получаем данные и после этого изменяем наше состояние; &language=ru-RU` - значит пришли мне данные на русском
 								fetch(link)
 									.then(response => { return response.json(); }) //получаем response и этот response мы преобразуем в обычный js-обьект с помощью json
 									.then(data => { console.log('data', data); this.setState({ movies: data.results }); });	
 			}}
 		  />)
 	}
-		
 
-	/* alert(`'${tag.value}' was selected!`) */
-	  
+
+	english = (filters, page) => {                                           //аргумент filters буду пробрасывать в эту функцию
+		const { sort_by, primary_release_year, search, with_genres } = filters;
+		const queryStringParams = {
+		api_key: API_KEY_3,
+		language: "en-EN",
+		sort_by: sort_by,
+		page: page,
+		primary_release_year: primary_release_year,
+		query: search
+		};
+
+		const link = `${API_URL}/discover/movie?${queryString.stringify(
+			queryStringParams
+			)}`;
+			fetch(link)
+			.then(response => {
+				return response.json();
+			})                         //получаем response и этот response мы преобразуем в обычный js-обьект с помощью json
+				.then(data => { console.log('data', data); this.setState({ movies: data.results }); });
+	} 
+
+
+	russian = (filters, page) => {                                           //аргумент filters буду пробрасывать в эту функцию
+		const { sort_by, primary_release_year, search, with_genres } = filters;
+		const queryStringParams = {
+		api_key: API_KEY_3,
+		language: "ru-RU",
+		sort_by: sort_by,
+		page: page,
+		primary_release_year: primary_release_year,
+		query: search
+		};
+
+		const link = `${API_URL}/discover/movie?${queryString.stringify(
+			queryStringParams
+			)}`;
+			fetch(link)
+			.then(response => {
+				return response.json();
+			})                         //получаем response и этот response мы преобразуем в обычный js-обьект с помощью json
+				.then(data => { console.log('data', data); this.setState({ movies: data.results }); });
+	} 
+		
 
 	componentDidMount() {                                                         //этот МЖЦ срабатывает только 1 раз после первого рендера там где и нужно делать все наши ajax-запросы. 
 		this.getVideos(this.props.filters, this.props.page);
@@ -118,9 +155,29 @@ export default class VideoListContainer extends React.Component {
 		const { movies } = this.state;    //console.log('movies', movies);    //console.log('filters', this.props.filters);
 		console.log("render");                               //сколько раз рендер произошол
 		return (<>
+				
+				<div className="buttonlang" align="right">
+				<ul className="navbar-nav">
+					<li className="nav-item active">
+						<button className="btn btn-light" type="button" onClick={this.english}>
+							Английский язык
+						</button>
+					</li>
+				</ul> 
+
+				<ul className="navbar-nav">
+					<li className="nav-item active">
+						<button className="btn btn-light" type="button" onClick={this.russian}>
+							Русский язык
+						</button>
+					</li>
+				</ul> 
+				</div>
+			
+
 			<h5>Облако популярных тегов:</h5>
-			{this.SimpleCloud()}
-			<h3>Рекомендуемые фильмы и сериалы:</h3>
+			{this.SimpleCloud()}<br/>
+			<h3 align="center">Популярные фильмы:</h3>
 			<VideoList movies={movies} />
 			</>
 		);

@@ -21,7 +21,7 @@ export default class Login extends React.Component {
 		return (
 				<div >
 					<button className="btn btn-success" type="button" onClick={this.toggleModal}>
-						Login
+						Login TheMovieDB
 					</button>
 					<Modal isOpen={this.state.showLoginForm} toggle={this.toggleModal}>
 						<ModalBody>

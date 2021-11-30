@@ -61,15 +61,15 @@ export default class VideoItem extends React.PureComponent {
           starCount={10}
           value={cookies.get(this.props.item.id) ? cookies.get(this.props.item.id) : 1}
           onStarClick={this.onStarClick.bind(this)}
-        /><br/><br/>
+        /><br/>
         
-      <div className="card-text"><strong>Дата релиза:</strong> {item.release_date}</div>
-      <div className="card-text"><strong>Рейтинг:</strong> {item.vote_average}</div>
-			<div className="card-text"><strong>Популярность:</strong> {item.popularity}</div>
-      <div className="card-text"><strong>Количество голосов:</strong> {item.vote_count}</div>
+      {/* <div className="card-text"><strong>Дата релиза: </strong> {item.release_date}</div>
+      <div className="card-text"><strong>Рейтинг TheMovieDB: </strong> {item.vote_average}</div>
+			<div className="card-text"><strong>Популярность: </strong> {item.popularity}</div>
+      <div className="card-text"><strong>Количество голосов: </strong> {item.vote_count}</div> */}
           </div>
 
-			<div className="card-text"><strong>Описание:</strong> {item.overview}</div>
+			<div className="card-text"><strong>Описание: </strong> {item.overview}</div>
       <Link to={`/movie/${item.id}`} className="btn btn-primary">Полное описание</Link>
         
 		</div>

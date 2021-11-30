@@ -21,7 +21,7 @@ function Authfb() {
   }
 
   return (
-    <div class="container">
+    <div class="container" align="right">
       
           {!login &&
             <FacebookLogin

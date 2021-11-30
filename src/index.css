@@ -25,7 +25,9 @@ input.invalid {
   border-color: #dc3545;
 }
 
-
+.buttonlang {
+  display: block;
+}
 
 
 

@@ -12,7 +12,7 @@ class Header extends React.Component {
 				<div className="container">
 					<ul className="navbar-nav">
 						<li className="nav-item active">
-							<button className="btn btn-dark" type="button" onClick={this.sendPromises}>
+							<button className="btn btn-light" type="button" onClick={this.sendPromises}>
 							<Link to="/">На главную</Link>
 							</button>
 						</li>

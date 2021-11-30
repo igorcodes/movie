@@ -10,7 +10,7 @@ export default class VideosPage extends React.Component {
 
     this.state = {                              //все вильтры и их значения буду записывать в обьект filters
       filters: {
-        sort_by: "vote_count.desc",
+        sort_by: "popularity.desc",
         primary_release_year: 2021,
         with_genres: [],
         search: [] 
