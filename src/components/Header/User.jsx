@@ -3,6 +3,7 @@ import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from "reactstrap"
 import React, { Component } from "react";
 
 import {callApi, API_URL, API_KEY_3} from "../../api/api";
+import { Link } from "react-router-dom";
 
 class User extends Component {
 	state = {
@@ -29,7 +30,7 @@ class User extends Component {
 	}
 
 	render () {
-		const { user, logOut } = this.props;
+		const { user } = this.props;
 		return (
 			<Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
 				<DropdownToggle  tag="div" onClick={this.toggleDropdown} data-toggle="dropdown" aria-expanded={this.state.dropdownOpen} >
@@ -38,7 +39,7 @@ class User extends Component {
 
 				<DropdownMenu end>
 					<DropdownItem onClick={this.handleLogOut}>Выход</DropdownItem>
-					<DropdownItem>Избранные</DropdownItem>
+					<DropdownItem><Link to="/my-library">Избранные</Link></DropdownItem>
 				</DropdownMenu>
 
 			</Dropdown>

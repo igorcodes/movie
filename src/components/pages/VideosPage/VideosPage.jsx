@@ -2,7 +2,6 @@ import React from "react";
 import Filters from "../../Filters/Filters";
 import VideoListContainer from "../../Videos/VideoListContainer";
 import '../../../App.css';
-import {API_URL, API_KEY_3, callApi} from "../../../api/api"
  
 
 export default class VideosPage extends React.Component {
@@ -76,7 +75,7 @@ export default class VideosPage extends React.Component {
           </div>
 
           <div className="col-8">
-            <h3>Рекомендуемые фильмы и сериалы:</h3>
+            
             <VideoListContainer filters={this.state.filters} page={page} onChangePage={this.onChangePage} />     {/* перекинул page={page} в VideoList, и теперь в нем есть page и там можно работать со страницами */}
           </div>
 

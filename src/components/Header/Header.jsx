@@ -1,6 +1,8 @@
 import React from "react";
 import Login from "./Login/Login";
 import User from "./User";
+import { Link } from "react-router-dom";
+import Authfb from "./Authfb"
 
 class Header extends React.Component {
 	render() {                                 {/* 2 в хедере его получили и передали дальше */}
@@ -11,12 +13,12 @@ class Header extends React.Component {
 					<ul className="navbar-nav">
 						<li className="nav-item active">
 							<button className="btn btn-dark" type="button" onClick={this.sendPromises}>
-								Home
+							<Link to="/">На главную</Link>
 							</button>
 						</li>
 					</ul>                {/*  если user не налл а наполненный , тогда выводить компонент <User /> а иначе выводить <Login updateUser={updateUser} />  */}
 					{ user ? <User user={user} session_id={session_id} logOut={logOut}  /> : <Login updateUser={updateUser} updateSessinId={updateSessinId} /> }
-					
+					<Authfb />
 				</div>
 			</nav>
 		);

@@ -6,13 +6,9 @@ import {API_URL, API_KEY_3, callApi} from "./api/api"
 
 import VideosPage from "./components/pages/VideosPage/VideosPage"
 import VideoPage from "./components/pages/VideoPage/VideoPage"
+import Mylist from "./components/Filters/Mylist"
 
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
  
 const cookies = new Cookies();
 
@@ -70,9 +66,10 @@ export default class App extends React.Component {
       <BrowserRouter>          
 
           <Header user={user} updateUser={this.updateUser} session_id={session_id} logOut={this.logOut} updateSessinId={this.updateSessinId} />    {/* 1 в хедер его передали */}
-          <Link to="/">Go to home</Link><br/>
-          {/* <Link to="/movie/1">1</Link> */}
+          {/* <Link to="/">Go to home</Link><br/>
+          <Link to="/my-library">Избранные</Link><br/>    */}       
 
+          <Route path="/my-library" component={Mylist} />
           <Route exact path="/" component={VideosPage} />
           <Route path="/movie/:id" component={VideoPage} />
         

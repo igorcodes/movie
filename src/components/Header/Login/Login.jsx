@@ -17,65 +17,6 @@ export default class Login extends React.Component {
 		}))
 	}
 	
-	/* sendPromises = async () => {    						//по умлочанию если мы не укажем никакие опшены вторым аргуменом как обьектом, я могу в then получить респонс, превратить его в json и уже в последней цепочке получить data которую я буду выводить
-
-		const callApi = (url, options = {}) => {
-			return new Promise((resolve, reject) => {  	//промис задается главным способом через конструктор new Promise и принимает функцию где первый аргумент будет ресолв а второй аргумент будет реджект
-				fetch(url, options) 					//делаю запрос фетч
-				.then(response => {  				//внутри него респонс - респонс джейсон//и потом выводим дату.  Но fetch всегда будет суксесс только если есть проблемы с интернетом, неважно какой респонс пришел (401 500) все равно оно будет в then и это не удобно так как при валидации логина приходит 401 о том что  логин или пароль не верные
-					if (response.status < 400) {
-						return response.json();
-					} else {  					//если будет 401 нужно передавать в ошибку
-						throw response; 		//єто ошибка fetchа чтобы перешло в кетч
-					} 							//создал промис внутри которого фетч
-				})
-				
-				.then(data => { resolve(data); })  		// этот then когда все хорошо, у промиса первый аргумент была функция resolve
-				.catch(response => {					// этот catch ловит ошибку
-					response.json().then(error => {
-						reject(error); 					//ошибка обрабатывается и превращается в простой обьект, который мы передадим в кетч нашей цепочки
-					});
-					})
-				}); 
-		};
-
-		try {
-			const data = await callApi(`${API_URL}/authentication/token/new?api_key=${API_KEY_3}`);  			//в data звписал мой обьект
-		console.log(data);
-
-		const result = await callApi(`${API_URL}/authentication/token/validate_with_login?api_key=${API_KEY_3}`,     //в result звписал результат фетча
-				{
-				method: "POST",  						// вторым переметром нужно описать методы 
-				mode: "cors", 
-				headers: {
-					"Content-type": "application/json"
-				},    					
-				body: JSON.stringify({
-				username: "igorzakutajlo",
-				password: "olegtpk",
-				request_token: data.request_token
-				})
-			}
-		);
-
-		const {session_id} = await callApi(`${API_URL}/authentication/session/new?api_key=${API_KEY_3}`,     //деструктуризация
-			{
-			method: "POST",  								// вторым переметром нужно описать методы
-			mode: "cors", 
-			headers: {
-				"Content-type": "application/json"
-				},    										//при помощи JSON.stringify превращаю этот обьект в строку
-			body: JSON.stringify({  						// body это ключ который будет принимать обьект данных
-				request_token: result.request_token  		//который я получил с предыдущего запроса
-			})
-			}
-		);
-		console.log(session_id);
-		} catch(error) {	console.log("error", error);	}
-		
-		
-
-	}; */
 	render() {
 		return (
 				<div >

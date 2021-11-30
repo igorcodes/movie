@@ -4,7 +4,6 @@ export default class PrimaryReleaseYear extends React.Component {
 	render() {
 		const {primary_release_year, onChangeFilters} = this.props;
 		
-		console.log("PrimaryReleaseYear render 2");
 		return (
 			<div className="form-group">
 			<label htmlFor="sort_by">Год релиза:  </label>
