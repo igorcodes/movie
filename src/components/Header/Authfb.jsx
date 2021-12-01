@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { Card, Image } from 'react-bootstrap';
-//import App2 from '../App2';
 
 function Authfb() {
 

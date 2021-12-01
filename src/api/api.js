@@ -36,13 +36,7 @@ export default class CallApi {
       api_key: API_KEY_3,
       ...params
     };
-    // url = "/discover/movie"
-    // params = {
-    //language: "ru-RU",
-    // sort_by: sort_by,
-    // page: page,
-    // primary_release_year: primary_release_year
-    //}
+    
     return callApi(
       `${API_URL}${url}?${queryString.stringify(queryStringParams)}`,
       {

@@ -7,15 +7,15 @@ export default class Genres extends React.Component {
 		super();
 
 		this.state = {
-			genresList: []                              //это изменяемый массив, должен быть в стейте, изначально пустой без данных (пока не получили их с API), данные будеи получать в componentDidMount
+			genresList: []                              
 		};
 	}
 	
 	componentDidMount() { 
 		const link = `${API_URL}/genre/movie/list?api_key=${API_KEY_3}&language=ru-RU`;
 		fetch(link)
-			.then(response => { return response.json(); }) //получаем response и этот response мы преобразуем в обычный js-обьект с помощью json
-			.then(data => { this.setState({ genresList: data.genres }); }); //data.results это наш массив фильмов, setStatом мы изменяем стейт и происходит рендер и в movies.map появляется массив из 20 элементов, мы его мапируем и
+			.then(response => { return response.json(); }) 
+			.then(data => { this.setState({ genresList: data.genres }); }); 
 	}
 								
 	onChange = event => {

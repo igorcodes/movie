@@ -1,9 +1,5 @@
 import React from "react";
-//import Favorite from "./Favorite";
-//import WillWatch from "./WillWatch";
 import { Link } from "react-router-dom";
-//import Image from "../UIComponents/Image";
-//import Progressbar from "../UIComponents/Progressbar";
 import StarRatingComponent from 'react-star-rating-component';
 import Cookies from 'universal-cookie';
 
@@ -31,10 +27,9 @@ export default class VideoItem extends React.PureComponent {
     console.log("cookies", cookies);
   }
 
-  componentDidUpdate() {                                  //при первом рендере делаем запрос компонент дидмаунт
-    const nextValue = cookies.get("nextValue");         //делать запрос callApi только если уже есть session_id
+  componentDidUpdate() {                                  
+    const nextValue = cookies.get("nextValue");         
     console.log("nextValue2", nextValue);
-    //this.state.rating = nextValue;
     
   }
 
@@ -78,4 +73,3 @@ export default class VideoItem extends React.PureComponent {
   }
 }
 
-/* , ${item.title} */

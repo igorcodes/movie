@@ -1,12 +1,13 @@
 import React from "react";
 import Login from "./Login/Login";
 import User from "./User";
+import User2 from "./User2";
 import { Link } from "react-router-dom";
 import Authfb from "./Authfb"
 
 class Header extends React.Component {
-	render() {                                 {/* 2 в хедере его получили и передали дальше */}
-		const {user, updateUser, updateSessinId, session_id, logOut} = this.props  //деструктурирую пропс компоненты Header, в нее раньше передал функции user, updateUser. тут уже я получаю user как пропс, помтому что я перед этим передал его из app.js (в рендере внес его в стейт и передал ниже <Header user={user} updateUser={this.updateUser} />)
+	render() {                                
+		const {user, updateUser, updateSessinId, session_id, logOut} = this.props  
 		return (
 			<nav className="navbar navbar-dark bg-primary">
 				<div className="container">
@@ -16,9 +17,10 @@ class Header extends React.Component {
 							<Link to="/">На главную</Link>
 							</button>
 						</li>
-					</ul>                {/*  если user не налл а наполненный , тогда выводить компонент <User /> а иначе выводить <Login updateUser={updateUser} />  */}
+					</ul>               
 					{ user ? <User user={user} session_id={session_id} logOut={logOut}  /> : <Login updateUser={updateUser} updateSessinId={updateSessinId} /> }
 					<Authfb />
+					
 				</div>
 			</nav>
 		);

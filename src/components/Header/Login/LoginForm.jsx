@@ -2,14 +2,14 @@ import React from "react";
 import {API_URL, API_KEY_3, callApi } from "../../../api/api";
 
 export default class LoginForm extends React.Component {
-    state = {                                                 //указал в состоянии пустые username, password, пустой обьект ошибок
+    state = {                                                 
         username: "",
         password: "",
         errors: {},
         submitting: false
     };
 
-  onChange = e => {                            //функция-обработчки которая принимает таргет нейм и event и после меняет значение на то что казано было в таргете (евент таргет)
+  onChange = e => {                            
     this.setState({
 		[e.target.name]: e.target.value
       });
@@ -20,7 +20,7 @@ export default class LoginForm extends React.Component {
   validateFields = () => {
     const errors = {};
     if (this.state.username === "") {
-      errors.username = "Not empty";                         //добавить алерт не пустой инпут
+      errors.username = "Not empty";                         
     }
     return errors;	
   };
@@ -63,12 +63,12 @@ export default class LoginForm extends React.Component {
         );
       })
       .then(data => {
-        this.props.updateSessinId(data.session_id);    //обновляю состояние data.session_id после того как его получил, и вызвать его перед тем как я буду отправлять запрос на получение юзера
+        this.props.updateSessinId(data.session_id);    
         return callApi(`${API_URL}/account?api_key=${API_KEY_3}&session_id=${data.session_id}`);
       })
-      .then(user => {  //тут будет получение юзера
+      .then(user => {  
         this.setState({submitting: false}, () => {
-          this.props.updateUser(user);   //и уже в эту функцию буду передавать наш респонс то что приходит в api. мы нажимаем на вход, получаем юзера и поднимаем аж в app и потом в зависимости от app мы будем что-то делать 
+          this.props.updateUser(user);   
         });
       })
 
@@ -94,7 +94,7 @@ export default class LoginForm extends React.Component {
           ...errors
         }
       }))
-    } else {                                             //если есть ошибки - показывать ошибки, инча делать наш запрос
+    } else {                                             
       this.onSubmit();
     }
   };
@@ -118,7 +118,7 @@ export default class LoginForm extends React.Component {
             name="username"
             value={username}
             onChange={this.onChange}
-			      onBlur={this.handleBlur}                                                             //когда убираешь курсор с поля
+			      onBlur={this.handleBlur}                                                             
           />
 		  {errors.username && ( <div className="invalid-feedback">{errors.username}</div> )}
 		  </div>

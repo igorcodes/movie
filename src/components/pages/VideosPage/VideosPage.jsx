@@ -5,10 +5,10 @@ import '../../../App.css';
  
 
 export default class VideosPage extends React.Component {
-  constructor() {                              //создаю состояние конструктор, фильтров вверху всего кода (стандартно) для того чтобы при смене селекта-фильта мы отправляли новый запрос для получения нового VideoList. Детектит изменение пропсов и делает новый запрос  
+  constructor() {                               
     super()
 
-    this.state = {                              //все вильтры и их значения буду записывать в обьект filters
+    this.state = {                              
       filters: {
         sort_by: "popularity.desc",
         primary_release_year: 2021,
@@ -24,17 +24,17 @@ export default class VideosPage extends React.Component {
     const newFilters = { ...this.state.filters,   //значит константа newFilters равняется обновленному ...this.state.filters
       [event.target.name]: event.target.value     //обновляю ключ который нам нужен, event.target.name меняю на event.target.value
     };
-    this.setState({                               //делаем функциональный компонент, вместо ретурна будет возращать  //меняем состояние стандартно (this.setState принимает обьект) - после сменя фильтра
-      filters: newFilters                         //обновляю фильтр       
+    this.setState({                               
+      filters: newFilters                             
     });
     console.log(event.target.name, event.target.value)
   }; 
 
-                                                 //функция изменения состояния page, просто кнопки вперед/назад
+                                                 
   onChangePage = page => {
     console.log(page);
     this.setState({
-      page                                       //идентично page: page, (page будем менять на page который мы получили  )б page: page - если ключ совпадает с переменной то это потом преобразуется в ключ: значение с помощью ES6
+      page                                       
     });
   };
 
@@ -60,7 +60,7 @@ export default class VideosPage extends React.Component {
   }; 
 
   render() {
-    const { filters, page} = this.state;         //без этого ниже <Filters page={this.state.page} filters={this.state.filters}
+    const { filters, page} = this.state;         
     return (
 	<div className="container">
         <div className="row mt-4">
@@ -69,14 +69,14 @@ export default class VideosPage extends React.Component {
             <div className="card" style={{width: "100%"}}>
               <div className="card-body">
                 <h3>Фильтры:</h3>
-                <Filters page={page} /* total_pages={total_pages} */ filters={filters} onChangeFilters={this.onChangeFilters} onChangePage={this.onChangePage}  onChangeGenre={this.onChangeGenre} />
+                <Filters page={page} filters={filters} onChangeFilters={this.onChangeFilters} onChangePage={this.onChangePage}  onChangeGenre={this.onChangeGenre} />
               </div>
             </div>
           </div>
 
           <div className="col-8">
             
-            <VideoListContainer filters={this.state.filters} page={page} onChangePage={this.onChangePage} />     {/* перекинул page={page} в VideoList, и теперь в нем есть page и там можно работать со страницами */}
+            <VideoListContainer filters={this.state.filters} page={page} onChangePage={this.onChangePage} />    
           </div>
 
         </div>

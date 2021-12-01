@@ -14,6 +14,7 @@
     "react-bootstrap": "^2.0.2",
     "react-dom": "^17.0.2",
     "react-facebook-login": "^4.1.1",
+    "react-feedback-widget": "^3.0.2",
     "react-power-reviews": "^2.0.1",
     "react-router": "^5.2.1",
     "react-router-dom": "^5.3.0",
