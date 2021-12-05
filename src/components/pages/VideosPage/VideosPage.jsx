@@ -19,8 +19,8 @@ export default class VideosPage extends React.Component {
     };
   }
 
-                                                  //после того как выберем опцию сортирвки - будет меняться состояние и новое знаяение sort_by - и оно будет спускаться в filters и VideoList
-  onChangeFilters = (event) => {                  //для Filters.js чтобы при изменении селлекта (фильтра) менялся обьект VideoList
+                                                  
+  onChangeFilters = (event) => {                  
     const newFilters = { ...this.state.filters,   //значит константа newFilters равняется обновленному ...this.state.filters
       [event.target.name]: event.target.value     //обновляю ключ который нам нужен, event.target.name меняю на event.target.value
     };
