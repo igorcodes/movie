@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { Card, Image } from 'react-bootstrap';
+import { Link } from "react-router-dom";
+import User2 from "./User2";
 
 function Authfb() {
 
   const [login, setLogin] = useState(false);
   const [data, setData] = useState({});
-  const [picture, setPicture] = useState('');
 
   const responseFacebook = (response) => {
     console.log('response Authfb' + response);
     setData(response);
-    setPicture(response.picture.data.url);
     if (response.accessToken) {
       setLogin(true);
     } else {
@@ -24,20 +24,21 @@ function Authfb() {
       
           {!login &&
             <FacebookLogin
-              appId="610136123510751"
+              appId="351722520051537"
               autoLoad={false}
-              fields="name,email,picture"
+              fields="name,email"
               scope="public_profile,user_friends"
               callback={responseFacebook}
               icon="fa-facebook" />
           }
-          {/* {login &&
-            <App2 />
-          } */}
+          {login &&
+            <User2 />
+          }
         <Card>
         {login &&
           <Card.Body>
             <Card.Title>{data.name}</Card.Title>
+            <Link to="/my-library">Мои Избранные</Link>
             <Card.Text>
               {data.email}
             </Card.Text>
