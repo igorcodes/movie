@@ -65,12 +65,10 @@ export default class App extends React.Component {
     return (
       <BrowserRouter>          
 
-          <Header user={user} updateUser={this.updateUser} session_id={session_id} logOut={this.logOut} updateSessinId={this.updateSessinId} />    
-          {/* <Link to="/">Go to home</Link><br/>
-          <Link to="/my-library">Избранные</Link><br/>    */}       
-
-          <Route path="/my-library" component={Mylist} />
+          <Header user={user} updateUser={this.updateUser} session_id={session_id} logOut={this.logOut} updateSessinId={this.updateSessinId} />      
+          
           <Route exact path="/" component={VideosPage} />
+          <Route path="/my-library" component={Mylist} />
           <Route path="/movie/:id" component={VideoPage} />
         
       </BrowserRouter>
