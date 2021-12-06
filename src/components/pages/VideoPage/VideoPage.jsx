@@ -1,5 +1,5 @@
 import React from "react";
-import callApi from '../../../api/api';
+import {callApi} from '../../../api/api';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
